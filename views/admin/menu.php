@@ -113,20 +113,18 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Tabla de usuarios</h4>
-              <?php 
+            <div class="card-header d-flex bd-highlight">
+              <h4 class="card-title p-2 flex-grow-1 bd-highlight">Usuarios registrados</h4>
+              <a class="btn btn-primary"  href="/admin/usuarios/crear-usuario" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Agregar usuario
+              </a>
+            </div>
+            <?php 
                 $mensaje = mostrarNotificacion( intval( $resultado) );
                 if($mensaje) { ?>
                     <p class="alert alert-success text-white font-weight-bold text-center text-uppercase"><?php echo s($mensaje); ?></p>
                 <?php } 
               ?>
-            </div>
-            <p>
-              <a class="btn btn-primary"  href="/admin/usuarios/crear-usuario" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Agregar usuario
-              </a>
-            </p>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
@@ -135,13 +133,13 @@
                       Nombre
                     </th>
                     <th>
-                      Apellido Paterno
+                      A. Paterno
                     </th>
                     <th>
-                      Apellido Materno
+                      A. Materno
                     </th>
                     <th>
-                      Numero de empleado
+                      Id. Empleado
                     </th>
                     <th>
                         Puesto
@@ -181,17 +179,19 @@
                         <?php echo $usuario->tipo; ?>
                       </td>
                       <td>
-                        <a href="/admin/usuario/recuperar?id=<?php echo $usuario->id?>" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
+                      <div class="d-flex align-items-center">
+                        <a href="/admin/usuario/recuperar?id=<?php echo $usuario->id?>" rel="tooltip" title="Restablecer password" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
                             <i class="now-ui-icons loader_refresh"></i>
                         </a>
                         <form method="POST" action="/admin/usuarios/eliminar-usuario?id=<?php echo $usuario->id?>">
-                          <button type="submit" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
+                          <button rel="tooltip" title="Eliminar usuario" type="submit" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
                               <i class="now-ui-icons ui-1_simple-remove"></i>
                           </button>
                         </form>
-                        <a href="/admin/usuarios/actualizar-usuario?id=<?php echo $usuario->id?>" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
+                        <a href="/admin/usuarios/actualizar-usuario?id=<?php echo $usuario->id?>" rel="tooltip" title="Editar información" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
                             <i class="now-ui-icons design-2_ruler-pencil"></i>
                         </a>
+                      </div>
                       </td>
                     </tr>
                   </tbody>

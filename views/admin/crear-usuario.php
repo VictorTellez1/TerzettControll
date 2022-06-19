@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" href="../assets/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Nuevos usuarios | Terzett Technologix
+    Nuevo usuario | Terzett Technologix
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -134,8 +134,8 @@
                 ?>
                 <form method="POST" action="/admin/usuarios/crear-usuario">
                     <div class="form-group">
-                        <label for="nombre">Nomplre completo</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo s($usuario->nombre) ?>">
+                        <label for="nombre">Nombre(s)</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre(s)" name="nombre" value="<?php echo s($usuario->nombre) ?>">
                       </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
@@ -161,9 +161,10 @@
                         <input type="puesto" class="form-control" id="puesto" placeholder="Puesto" name="puesto" value="<?php echo s($usuario->puesto) ?>">
                       </div>
                       <div class="form-group col-md-4">
-                        <label for="tipo">Tipo</label>
+                        <label for="tipo">Rol</label>
                         <select id="tipo" class="form-control" name="tipo">
-                          <option selected>Lider</option>
+                        <option selected>Selecciona el tipo de rol</option>
+                          <option>Lider</option>
                           <option>Empleado</option>
                           <option>Administrador</option>
                         </select>

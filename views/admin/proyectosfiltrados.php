@@ -93,32 +93,49 @@
     </div>
     <div class="main-panel" id="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
+      <nav class="navbar navbar-expand-lg bg-primary navbar-absolute navbar-transparent">
+            <div class="container-fluid">
+            <div class="navbar-wrapper">
             <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
+            <button type="button" class="navbar-toggler">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+            </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Administración de proyectos</a>
-          </div>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <a class="navbar-brand" href="#pablo">Admnistración de proyectos</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            </button>
+            <div class="navbar-collapse justify-content-end collapse show" id="navigation" style="">
+            <form class="form-inline my-2 my-lg-0" action="/admin/proyectos/filtro" method="POST">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search"  id="nombre" name="busqueda">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                  </form>
+
+            
+
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
-              </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" rel="tooltip" title="Filtrar con las siguientes opciones">
+            <i class="now-ui-icons education_glasses"></i>
+            <p>
+            <span class="d-lg-none d-md-block">Some Actions</span>
+            </p>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=0">Ford</a>
+            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=1">BD</a>
+            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=2">Internos</a>
+            </div>
+            </li>
             </ul>
-          </div>
-        </div>
-      </nav>
+            </div>
+            </div>
+            </nav>
       <!-- End Navbar -->
       <div class="panel-header panel-header-sm">
     </div>
@@ -126,38 +143,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Proyectos</h4>
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand text-dark" href="#">Busqueda o Filtrado</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link text-dark" href="/admin/proyectos/filtro?filtro=0">FORD <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-dark" href="/admin/proyectos/filtro?filtro=1">BD</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-dark" href="/admin/proyectos/filtro?filtro=2">Internos</a>
-                    </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0" action="/admin/proyectos/filtro" method="POST">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  id="nombre" name="busqueda">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
-                </div>
-            </nav> 
-            </div>
-          <p>
-            <a  href="/admin/proyectos" class="btn btn-primary">
-              Volver
+            <div class="card-header d-flex bd-highlight">
+              <h4 class="card-title p-2 flex-grow-1 bd-highlight">Resultados encontrados:</h4>
+              <a  href="/admin/proyectos" class="btn btn-primary p-2 bd-highlight">
+              Regresar a proyectos
             </a>
-
-          </p>
+            </div>
             <?php if(empty($tablones)) {?>
                 <p class="text-center text-bold">No hay resultados para el criterio de busqueda</p>
 

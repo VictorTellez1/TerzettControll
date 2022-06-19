@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" href="../assets/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Nuevos usuarios | Terzett Technologix
+    Nueva contraseña | Terzett Technologix
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -95,7 +95,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Cambio de password</a>
+            <a class="navbar-brand" href="#pablo">Cambio de contraseña</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
         </div>
@@ -124,10 +124,10 @@
                 <form method="POST" action="/usuario/password">
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                        <input type="password" class="form-control" id="password" placeholder="Introducir contraseña" name="password">
                       <div class="form-group">
                         <label for="password1">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="password1" placeholder="Confirmar password" name="password1">
+                        <input type="password" class="form-control" id="password1" placeholder="Repetir contraseña" name="password1">
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                   </form>

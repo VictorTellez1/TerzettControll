@@ -87,24 +87,49 @@
     </div>
     <div class="main-panel" id="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
+      <nav class="navbar navbar-expand-lg bg-primary navbar-absolute navbar-transparent">
+            <div class="container-fluid">
+            <div class="navbar-wrapper">
             <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
+            <button type="button" class="navbar-toggler">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+            </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Administración de proyectos</a>
-          </div>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <a class="navbar-brand" href="#pablo">Admnistración de proyectos</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            </button>
+            <div class="navbar-collapse justify-content-end collapse show" id="navigation" style="">
+            <form class="form-inline my-2 my-lg-0" action="/admin/proyectos/filtro" method="POST">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search"  id="nombre" name="busqueda">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                  </form>
+
+            
+
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-        </div>
-      </nav>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" rel="tooltip" title="Filtrar con las siguientes opciones">
+            <i class="now-ui-icons education_glasses"></i>
+            <p>
+            <span class="d-lg-none d-md-block">Some Actions</span>
+            </p>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=0">Ford</a>
+            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=1">BD</a>
+            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=2">Internos</a>
+            </div>
+            </li>
+            </ul>
+            </div>
+            </div>
+            </nav>
       <!-- End Navbar -->
       <div class="panel-header panel-header-sm">
     </div>
@@ -112,38 +137,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Proyectos</h4>
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand text-dark" href="#">Busqueda o Filtrado</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link text-dark" href="/lider/proyectos/filtro?filtro=0">FORD <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-dark" href="/lider/proyectos/filtro?filtro=1">BD</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link text-dark" href="/lider/proyectos/filtro?filtro=2">Internos</a>
-                    </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0" action="/lider/proyectos/filtro" method="POST">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  id="nombre" name="busqueda">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
-                </div>
-            </nav> 
-            </div>
-          <p>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <div class="card-header d-flex bd-highlight">
+              <h4 class="card-title p-2 flex-grow-1 bd-highlight">Proyectos</h4>
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
               Crear tablón
             </a>
-
-          </p>
+            </div>
           <?php
               include_once __DIR__."/../templates/alertas.php";
           ?>
@@ -187,23 +186,26 @@
                 <div class="card-header">
                     <strong>Líder de proyecto:<br></strong>  <?php echo $tablon->lider; ?>
                 </div>
-                <div class="card-body">
-                  <h5 class="card-title"><?php echo $tablon->nombre; ?></h5>
+                  <div class="card-body">
+                <strong>Título:<br></strong>
+                  <p class="card-text"><?php echo $tablon->nombre; ?></p>
+                <strong>Descripción:<br></strong>
                   <p class="card-text"><?php echo $tablon->descripcion; ?></p>
+                <strong>Destino de proyecto:<br></strong>
                   <?php if($tablon->lugar=='0') $tablon->lugar="FORD" ?>
                   <p><?php if($tablon->lugar=='1') $tablon->lugar="BD" ?>
                   <?php if($tablon->lugar=='2') $tablon->lugar="Interno" ?>
                   <p class="card-text"><?php echo $tablon->lugar?></p>
-                  <div class="card-footer text-muted">
-                    <strong>Fecha de creacion:<br></strong> <?php echo $tablon->fecha; ?>
-                  </div>
+                <strong>Fecha de creación:<br></strong> 
+                <?php echo $tablon->fecha; ?>
                   <div class="btn-toolbar justify-content-center">
                     <a href="/lider/proyectos/tablon?url=<?php echo $tablon->url?>" class="btn btn-primary ml-3">Detalles del tablón</a>
                     <form method="POST" action="/lider/proyectos/eliminar?url=<?php echo $tablon->url?>" class="eliminar">
-                      <button href="/admin/proyectos/eliminar?url=<?php echo $tablon->url?>" class="btn btn-danger ml-3">Eliminar del tablón</button>
+                      <button href="/lider/proyectos/eliminar?url=<?php echo $tablon->url?>" class="btn btn-danger ml-3">Eliminar del tablón</button>
                     </form>
+                    <!-- <button data-id="<?php echo $tablon->url?>" class="btn btn-danger ml-3 button">Eliminar el tablón</button> -->
                     <form method="POST" action="/lider/proyectos/tablon/pdf?url=<?php echo $tablon->url?>">
-                      <button href="/lider/proyectos/tablon/pdf?url=<?php echo $tablon->url?>" class="btn btn-success ml-3">Descargar el tablón</button>
+                      <button href="/lider/proyectos/tablon/pdf=<?php echo $tablon->url?>" class="btn btn-success ml-3">Descargar el tablón</button>
                     </form>
                   </div>
                 </div>

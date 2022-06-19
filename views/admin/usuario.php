@@ -20,7 +20,7 @@
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="/build/img/apple-icon.png">
-  <link rel="icon" type="image/png" href=/build/img/logo-terzett.png">
+  <link rel="icon" type="image/png" href="/build/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Nuevos usuarios | Terzett Technologix
@@ -112,10 +112,10 @@
       <div class="row" style="display: flex; justify-content: center;">          
             <div class="card text-center" style="width: 18rem;" >
                 <div class="card-body">
-                  <h5 class="card-title"><?php echo $usuario->nombre . " ". $usuario->apellidoPaterno . " ".$usuario->apellidoMaterno?></h5>
-                  <p class="card-text">Numero de empleado : <?php echo $usuario->numeroempleado?></p>
-                  <p class="card-text">Puesto: <?php echo $usuario->puesto?></p>
-                  <p class="card-text">Email: <?php echo $usuario->correo?></p>
+                <h5 class="card-title"><?php echo $usuario->nombre . " ". $usuario->apellidoPaterno . " ".$usuario->apellidoMaterno?></h5>
+                  <p class="card-text"><strong>Numero de empleado :</strong> <?php echo $usuario->numeroempleado?></p>
+                  <p class="card-text"><strong>Puesto:</strong><?php echo $usuario->puesto?></p>
+                  <p class="card-text"><strong>Email:</strong> <?php echo $usuario->correo?></p>
                   <a href="/admin/password" class="btn btn-primary">Cambiar contraseña</a>
                 </div>
               </div>

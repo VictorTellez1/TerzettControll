@@ -95,19 +95,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Detalle del proyecto</a>
-          </div>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
-              </li>
-            </ul>
+            <a class="navbar-brand"><?php echo $tablon->nombre; ?></a>
           </div>
         </div>
       </nav>
@@ -119,7 +107,6 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title"> <?php echo $tablon->nombre; ?></h4>
                 <strong>Líder de proyecto:</strong>  <?php echo $tablon->lider; ?>
             </div>
             
@@ -197,11 +184,11 @@
           <table class="table">
               <thead>
                 <tr>
-                  <th scope="col"><?php echo $grupo->nombre ?></th>
-                  <th scope="col">PERSONAS</th>
-                  <th scope="col">ESTADO</th>
-                  <th scope="col">FECHA DE CREACION</th>
-                  <th scope="col">ACCIONES</th>
+                <th class="text-primary" scope="col"><?php echo $grupo->nombre ?></th>
+                  <th scope="col"><strong>Asignación</strong></th>
+                  <th scope="col"><strong>Estado</strong></th>
+                  <th scope="col"><strong>Fecha de creación</strong></th>
+                  <th scope="col"><strong>Acciones</strong></th>
                 </tr>
               </thead>
               <tbody> 

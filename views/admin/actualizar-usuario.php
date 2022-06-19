@@ -95,7 +95,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Modificacion de usuario</a>
+            <a class="navbar-brand" href="#pablo">Actualización de información</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
@@ -119,7 +119,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title">Modificacion Usuario</h4>
+              <h4 class="card-title">Actualización de información de: <?php echo s($usuario->nombre) ?></h4>
             </div>
             <div class="card-body">
                 <?php
