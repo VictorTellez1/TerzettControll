@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" href="/build/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Detalles de proyecto | Terzett Technologix
+    Conversación de proyecto | Terzett Technologix
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -119,19 +119,25 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title">Agregar un comentario</h4>
+              <h4 class="card-title">Conversación de proyecto</h4>
             </div>
             <?php
               include_once __DIR__."/../templates/alertas.php";
           ?>
           
             <div class="card-body">
-                <form method="POST" action="/usuario/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>">
+                <form method="POST" action="/usuario/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="contenido">Comentario</label>
-                        <input type="text" class="form-control" id="contenido" placeholder="contenido" name="contenido">
+                        <div class="mb-3">
+                        <label for="contenido">Agregar comentario</label>
+                        <textarea class="form-control" id="contenido" rows="3" placeholder="¿Qué esta pasando?" name="contenido"></textarea>
+                     </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <label for="imagen" class="mb-2">Imagen</label>
+                    <input type="file" id="imagen" class="form-control" name="imagen" accept="image/jpeg, image/png" class="mb-2">
+                    <label for="imagen" class="mt-2">Archivo</label>
+                    <input type="file" id="archivo" class="form-control" name="archivo" accept=".doc,.docx,.xlsx,.pptx,.pdf">
+                    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
                   </form>
                 </table>
               </div>

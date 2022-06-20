@@ -8,6 +8,7 @@ use Model\Grupo;
 use Model\Tarea;
 use Model\UsuarioTarea;
 use Model\Comentario;
+use Intervention\Image\ImageManagerStatic as Image;
 class UsuarioController{
     public static function usuario(Router $router){
         //Iniciarlizar el revisar si es usuario y presentar su perfil
@@ -181,11 +182,11 @@ class UsuarioController{
         $url=($_GET['url']);
         $alertas=[];
         $tarea=new Tarea();
-        $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url); //Comprueba si el usuario que esta legeado esta en la tarea que intenta comentar, sino lo esta no lo permite agregar comentarios o contenido
-        if(empty($tarea))
-        {
-            header("Location: /usuario/proyectos/tablon?url=$url");
-        }
+        // $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url); //Comprueba si el usuario que esta legeado esta en la tarea que intenta comentar, sino lo esta no lo permite agregar comentarios o contenido
+        // if(empty($tarea))
+        // {
+        //     header("Location: /usuario/proyectos/tablon?url=$url");
+        // }
         $tarea=Tarea::where('url',$url);
         $IdGrupo=$tarea->IdGrupo;
         $grupo=Grupo::where('id',$IdGrupo);
@@ -197,7 +198,60 @@ class UsuarioController{
         if($_SERVER['REQUEST_METHOD']==='POST')
         {
             $comentario=new Comentario(); //Crear el comentario
-            
+            if($_FILES['imagen'])
+            {
+                
+                $size=$_FILES['imagen']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['imagen']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+                $imagen=$_FILES['imagen'];
+                if(($ext==='jpg') || ($ext==='jpeg') || ($ext==='png'))
+                {
+                    $nombreImagen=md5(uniqid(rand(),true)). ".jpg"; //Crear un nombre unic
+                    //Realizar un resize a la imagen con intervention
+                    $image=Image::make($_FILES['imagen']['tmp_name'])->resize(800,600);
+                    
+                    $comentario->setImagen($nombreImagen);
+                    if(!is_dir(CARPETA_IMAGENES)){
+                        mkdir(CARPETA_IMAGENES);
+                    }
+                    $image->save(CARPETA_IMAGENES .'/'.$nombreImagen);
+                }
+                elseif($ext===""){
+                    $comentario->imagen="";
+                }else{
+                    $alertas['error'][]="Formato de imagen no valido";
+                }
+            }
+            if($_FILES['archivo'])
+            {
+                $target_dir = "archivos/";
+                $size=$_FILES['archivo']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['archivo']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+                $temp_name = $_FILES['archivo']['tmp_name'];
+              
+                if(($ext==='xlsx') || ($ext==='doc') || ($ext==='pdf'))
+                {
+                    if(!is_dir(CARPETA_ARCHIVO)){
+                        mkdir(CARPETA_ARCHIVO);
+                    }
+                    $nombreArchivo=md5(uniqid(rand(),true)).".".$ext; //Crear un nombre unic
+                    $path_filename_ext = $target_dir.$nombreArchivo;
+                    
+                    
+                    
+                    //Realizar un resize a la imagen con intervention
+                    $comentario->setArchivo($nombreArchivo);
+                    move_uploaded_file($temp_name,$path_filename_ext);
+                }
+                elseif($ext===""){
+                    $comentario->archivo="";
+                }else{
+                    $alertas['error'][]="Formato de archivo no valido";
+                }
+                
+            }
             if(!($_POST['contenido']==="")){
                 $comentario->contenido=$_POST['contenido'];
                 $comentario->fecha=date('d-m-Y');
@@ -211,6 +265,7 @@ class UsuarioController{
             
             if(empty($alertas))
             {
+               
                 $resultado=$comentario->guardar();
                 if($resultado)
                 {
@@ -231,14 +286,14 @@ class UsuarioController{
         expira();
         $url=$_GET['url'];
         $tarea=new Tarea();
-        $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url); //Si el usuario no esta en ese tarea que intenta comentar o ver no lo permite acceder a ese vista
-        if(empty($tarea))
-        {
-            header("Location: /usuario/proyectos/tablon?url=$url");
-        }
+        // $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url); //Si el usuario no esta en ese tarea que intenta comentar o ver no lo permite acceder a ese vista
+        // if(empty($tarea))
+        // {
+        //     header("Location: /usuario/proyectos/tablon?url=$url");
+        // }
         $tarea=Tarea::where('url',$url);
         $id=$tarea->id;
-        $comentarios=Comentario::belogsTo('IdTarea',$id);
+        $comentarios=Comentario::belogsToOrdenado('IdTarea',$id);
         
         $router->render('usuario/mostrar',[
             'comentarios'=>$comentarios

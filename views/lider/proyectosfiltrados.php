@@ -105,7 +105,7 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
             </button>
             <div class="navbar-collapse justify-content-end collapse show" id="navigation" style="">
-            <form class="form-inline my-2 my-lg-0" action="/admin/proyectos/filtro" method="POST">
+            <form class="form-inline my-2 my-lg-0" action="/lider/proyectos/filtro" method="POST">
                     <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search"  id="nombre" name="busqueda">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                   </form>
@@ -121,9 +121,9 @@
             </p>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=0">Ford</a>
-            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=1">BD</a>
-            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=2">Internos</a>
+            <a class="dropdown-item" href="/lider/proyectos/filtro?filtro=0">Ford</a>
+            <a class="dropdown-item" href="/lider/proyectos/filtro?filtro=1">BD</a>
+            <a class="dropdown-item" href="/lider/proyectos/filtro?filtro=2">Internos</a>
             </div>
             </li>
             </ul>
@@ -167,7 +167,7 @@
                     <a href="/lider/proyectos/tablon?url=<?php echo $tablon->url?>" class="btn btn-primary ml-3">Detalles del tablón</a>
                     <a href="/lider/proyectos/tablon?url=<?php echo $tablon->url?>" class="btn btn-danger ml-3">Eliminar el tablón</a>
                     <form method="POST" action="/lider/proyectos/tablon/pdf?url=<?php echo $tablon->url?>">
-                      <button href="/admin/proyectos/tablon/pdf?url=<?php echo $tablon->url?>" class="btn btn-success ml-3">Descargar el tablón</a>
+                      <button href="/lider/proyectos/tablon/pdf?url=<?php echo $tablon->url?>" class="btn btn-success ml-3">Descargar el tablón</a>
                     </form>
                   </div>
                 </div>

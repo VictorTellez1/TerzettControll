@@ -120,9 +120,9 @@
           <div class="card">
             <div class="card-header d-flex bd-highlight">
               <h4 class="card-title p-2 flex-grow-1 bd-highlight">Comentarios y archivos</h4>
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              <!-- <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
               Agregar comentarios/archivos.
-            </a>
+            </a> -->
             </div>
           <!-- <?php
               include_once __DIR__."/../templates/alertas.php";
@@ -133,7 +133,7 @@
               <p class="alert alert-success text-white font-weight-bold text-center text-uppercase"><?php echo s($mensaje); ?></p>
             <?php } 
           ?> -->
-                  <form method="POST" action="/admin/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>">
+              <!-- <form method="POST" action="/admin/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" enctype="multipart/form-data">
             <div class="container">
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
@@ -145,7 +145,7 @@
                 </div>
             </div>
             </div>
-        </form>
+        </form> -->
           <?php if(empty($comentarios)) {?>
             <p class="text-center">No hay comentarios aun</p>
           <?php } ?>
@@ -155,6 +155,13 @@
                 <div class="card-body">
                   <h5 class="card-title">Envio un comentario: <br></h5><?php echo $comentario->nombre; ?><br>
                   <h5 class="card-title">Mensaje: <br></h5><?php echo $comentario->contenido; ?>
+                  <p class="mt-3 h5">Archivos :</p>
+                  <?php if(!($comentario->imagen==="")){?>
+                    <a href="/imagenes/<?php  echo $comentario->imagen;?>" class="btn btn-primary">Imagen</a>
+                  <?php } ?>
+                  <?php if(!($comentario->archivo==="")){?>
+                    <a href="/archivos/<?php  echo $comentario->archivo;?>" class="btn btn-primary">Documento</a>
+                  <?php }?>
                   <div class="card-footer text-muted">
                     <strong>Fecha de envio:<br></strong> <?php echo ($comentario->fecha); ?>
                   </div>

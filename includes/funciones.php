@@ -1,5 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
+define('CARPETA_IMAGENES',$_SERVER['DOCUMENT_ROOT'] . '/imagenes');
+define('CARPETA_ARCHIVO',$_SERVER['DOCUMENT_ROOT'] . '/archivos');
 function debuguear($variable) : string {
     echo "<pre>";
     var_dump($variable);

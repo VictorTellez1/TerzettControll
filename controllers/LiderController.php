@@ -8,6 +8,7 @@ use Model\Grupo;
 use Model\Tarea;
 use Model\UsuarioTarea;
 use Model\Comentario;
+use Intervention\Image\ImageManagerStatic as Image;
 class LiderController{
     public static function usuario(Router $router){
         //Iniciarlizar el revisar si es lider y presentar su perfil
@@ -235,15 +236,20 @@ class LiderController{
             $tareas=$tareas->tareasRecuperar($tablon->id);  //Necesario en tablon
             $usuarioTareas=new UsuarioTarea();
             if($tablon->lider !== $_SESSION['nombre']){ //QUTITAR EL DEBUGEAR Y CAMBIAR POR UN HEADER
+                
                 header ("Location: /lider/proyectos");
                 
-            }       
-            $usuarioTareas=$usuarioTareas->usuariosTareas($tablon->id);
-            crearPDF($tablon,$grupos,$tareas,$usuarioTareas);
-            $resultado=$tablon->eliminar();
-            if($resultado){
-                header("Location: /lider/proyectos?id=3");
-             } 
+            }else{
+                $usuarioTareas=$usuarioTareas->usuariosTareas($tablon->id);
+                crearPDF($tablon,$grupos,$tareas,$usuarioTareas);
+                $resultado=$tablon->eliminar();
+                debuguear($resultado);
+                if($resultado){
+                    header("Location: /lider/proyectos?id=3");
+                } 
+            }
+                  
+            
         }
     }
     public static function grupo(Router $router)
@@ -350,24 +356,30 @@ class LiderController{
                     $usuariotarea->IdUsuario=$usuariosSeleccionados[$i]; //Obtiene el id del usuario en custion
                     $usuariotarea->crearVarios();
                 }
-                }
+                
                 $usuarios=Usuario::all();
                 $tareas=new Tarea();
                 $tareas=$tareas->tareasRecuperar($tablon->id);  //Necesario en tablon
                 $usuarioTareas=new UsuarioTarea();        
                 $usuarioTareas=$usuarioTareas->usuariosTareas($tablon->id);
                 foreach($grupos as $grupo) //Actualizar o llenar la tabla de grupo con las tareas del grupo en cuestion
-            {
-                $grupo=Grupo::where('id',$grupo->id);
-                $grupo->total=$grupo->total($grupo->id);
-                $grupo->nuevas=$grupo->estado($grupo->id,0);
-                $grupo->estancadas=$grupo->estado($grupo->id,1);
-                $grupo->proceso=$grupo->estado($grupo->id,2);
-                $grupo->listas=$grupo->estado($grupo->id,3);
-                $grupo->guardar();
+                {
+                    $grupo=Grupo::where('id',$grupo->id);
+                    $grupo->total=$grupo->total($grupo->id);
+                    $grupo->nuevas=$grupo->estado($grupo->id,0);
+                    $grupo->estancadas=$grupo->estado($grupo->id,1);
+                    $grupo->proceso=$grupo->estado($grupo->id,2);
+                    $grupo->listas=$grupo->estado($grupo->id,3);
+                    $grupo->guardar();
                 
-            } 
-            header("Location: /lider/proyectos/tablon?url=$url1&id=1");        
+                }
+                header("Location: /lider/proyectos/tablon?url=$url1&id=1");        
+            }
+            $tareas=new Tarea();
+            $tareas=$tareas->tareasRecuperar($tablon->id);  //Necesario en tablon
+            $usuarioTareas=new UsuarioTarea();        
+            $usuarioTareas=$usuarioTareas->usuariosTareas($tablon->id);
+            
         }
         $router->render('lider/tablon',[
             'grupos'=>$grupos,
@@ -399,9 +411,9 @@ class LiderController{
         $grupo=Grupo::where('id',$idGrupo);
         $url=$grupo->idTablon;
         $tablon=Tablon::where('id',$url);
-        if($tablon->lider !== $_SESSION['nombre']){ //QUTITAR EL DEBUGEAR Y CAMBIAR POR UN HEADER
-            header("Location: /lider/proyectos");
-        }
+        // if($tablon->lider !== $_SESSION['nombre']){ //QUTITAR EL DEBUGEAR Y CAMBIAR POR UN HEADER
+        //     header("Location: /lider/proyectos");
+        // }
         $usuariostarea=UsuarioTarea::belogsTo('IdTarea',$tarea->id);// Te regresa la tarea que se va a modificar
         // foreach($usuariostarea as $usuariotarea)
         // {
@@ -465,23 +477,24 @@ class LiderController{
             $urlTablon=$grupo->idTablon;
             $tablon=Tablon::where('id',$urlTablon);
             if($tablon->lider !== $_SESSION['nombre']){ //QUTITAR EL DEBUGEAR Y CAMBIAR POR UN HEADER
-                
-                header("Location: /lider/proyectos");
-                debuguear("aca");
-            }
-            
-            $url=$tablon->url;
-            $resultado=$tarea->eliminar();
-            if($resultado){
-                $grupo=Grupo::where('id',$grupo->id);
-                $grupo->total=$grupo->total($grupo->id);
-                $grupo->nuevas=$grupo->estado($grupo->id,0);
-                $grupo->estancadas=$grupo->estado($grupo->id,1);
-                $grupo->proceso=$grupo->estado($grupo->id,2);
-                $grupo->listas=$grupo->estado($grupo->id,3);
-                $grupo->guardar();
+                header('Location : /lider/proyectos/tablon');
+            }else{
+                $url=$tablon->url;
+                $resultado=$tarea->eliminar();
+                if($resultado){
+                    $grupo=Grupo::where('id',$grupo->id);
+                    $grupo->total=$grupo->total($grupo->id);
+                    $grupo->nuevas=$grupo->estado($grupo->id,0);
+                    $grupo->estancadas=$grupo->estado($grupo->id,1);
+                    $grupo->proceso=$grupo->estado($grupo->id,2);
+                    $grupo->listas=$grupo->estado($grupo->id,3);
+                    $grupo->guardar();
+               
+                }
                 header("Location: /lider/proyectos/tablon?url=$url&id=3");
+            
             } 
+            header('Location : /lider/proyectos');
             
             
             // $resultado=$tablon->eliminar();
@@ -490,6 +503,7 @@ class LiderController{
             // } 
             
         }
+        header('Location : /lider/proyectos');
     }
 
     public static function comentarios(Router $router)
@@ -505,11 +519,11 @@ class LiderController{
         $grupo=Grupo::where('id',$urlGrupo);
         $urlTablon=$grupo->idTablon;
         $tablon=Tablon::where('id',$urlTablon);
-        $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url);
-        if(empty($tarea) && ($tablon->lider !== $_SESSION['nombre']))
-        {
-            header("Location: /lider/proyectos/tablon?url=$url");
-        }
+        // $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url);
+        // if(empty($tarea) && ($tablon->lider !== $_SESSION['nombre']))
+        // {
+        //     header("Location: /lider/proyectos/tablon?url=$url");
+        // }
         $tarea=Tarea::where('url',$url);
         $IdGrupo=$tarea->IdGrupo;
         $grupo=Grupo::where('id',$IdGrupo);
@@ -521,7 +535,62 @@ class LiderController{
         if($_SERVER['REQUEST_METHOD']==='POST')
         {
             $comentario=new Comentario();
+            $comentario=new Comentario();
             
+            if($_FILES['imagen'])
+            {
+                
+                $size=$_FILES['imagen']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['imagen']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+               
+                $imagen=$_FILES['imagen'];
+                if(($ext==='jpg') || ($ext==='jpeg') || ($ext==='png'))
+                {
+                    $nombreImagen=md5(uniqid(rand(),true)). ".jpg"; //Crear un nombre unic
+                    //Realizar un resize a la imagen con intervention
+                    $image=Image::make($_FILES['imagen']['tmp_name'])->resize(800,600);
+                    
+                    $comentario->setImagen($nombreImagen);
+                    if(!is_dir(CARPETA_IMAGENES)){
+                        mkdir(CARPETA_IMAGENES);
+                    }
+                    $image->save(CARPETA_IMAGENES .'/'.$nombreImagen);
+                }
+                elseif($ext===""){
+                    $comentario->imagen="";
+                }else{
+                    $alertas['error'][]="Formato de imagen no valido";
+                }
+            }
+            if($_FILES['archivo'])
+            {
+                $target_dir = "archivos/";
+                $size=$_FILES['archivo']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['archivo']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+                $temp_name = $_FILES['archivo']['tmp_name'];
+              
+                if(($ext==='xlsx') || ($ext==='doc') || ($ext==='pdf'))
+                {
+                    if(!is_dir(CARPETA_ARCHIVO)){
+                        mkdir(CARPETA_ARCHIVO);
+                    }
+                    $nombreArchivo=md5(uniqid(rand(),true)).".".$ext; //Crear un nombre unic
+                    $path_filename_ext = $target_dir.$nombreArchivo;
+                    
+                    
+                    
+                    //Realizar un resize a la imagen con intervention
+                    $comentario->setArchivo($nombreArchivo);
+                    move_uploaded_file($temp_name,$path_filename_ext);
+                }
+                elseif($ext===""){
+                    $comentario->archivo="";
+                }else{
+                    $alertas['error'][]="Formato de archivo no valido";
+                }
+            }
             if(!($_POST['contenido']==="")){
                 $comentario->contenido=$_POST['contenido'];
                 $comentario->fecha=date('d-m-Y');
@@ -534,6 +603,8 @@ class LiderController{
             }
             if(empty($alertas))
             {
+                
+                
                 $resultado=$comentario->guardar();
                 if($resultado)
                 {
@@ -554,14 +625,14 @@ class LiderController{
         expira();
         $url=$_GET['url'];
         $tarea=new Tarea();
-        $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url); //Revisar si la persona que intenta comentar es dueña del proyecto o participa en esa tarea
+        // $tarea=$tarea->comprobarSiUsuarioTarea($_SESSION['id'],$url); //Revisar si la persona que intenta comentar es dueña del proyecto o participa en esa tarea
         if(empty($tarea))
         {
             header("Location: /lider/proyectos/tablon?url=$url");
         }
         $tarea=Tarea::where('url',$url);
         $id=$tarea->id;
-        $comentarios=Comentario::belogsTo('IdTarea',$id);
+        $comentarios=Comentario::belogsToOrdenado('IdTarea',$id);
         
         $router->render('lider/mostrar',[
             'comentarios'=>$comentarios

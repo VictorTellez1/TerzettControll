@@ -132,15 +132,18 @@
           ?>
           
             <div class="card-body">
-                <form method="POST" action="/admin/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>">
+                <form method="POST" action="/admin/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" enctype="multipart/form-data">
                     <div class="form-group">
-                        
                         <div class="mb-3">
                         <label for="contenido">Agregar comentario</label>
-                    <textarea class="form-control" id="contenido" rows="3" placeholder="¿Qué esta pasando?" name="contenido"></textarea>
-                </div>
+                        <textarea class="form-control" id="contenido" rows="3" placeholder="¿Qué esta pasando?" name="contenido"></textarea>
+                     </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <label for="imagen" class="mb-2">Imagen</label>
+                    <input type="file" id="imagen" class="form-control" name="imagen" accept="image/jpeg, image/png" class="mb-2">
+                    <label for="imagen" class="mt-2">Archivo</label>
+                    <input type="file" id="archivo" class="form-control" name="archivo" accept=".doc,.docx,.xlsx,.pptx,.pdf">
+                    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
                   </form>
                 </table>
               </div>

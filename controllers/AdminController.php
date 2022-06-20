@@ -8,6 +8,7 @@ use Model\Grupo;
 use Model\Tarea;
 use Model\UsuarioTarea;
 use Model\Comentario;
+use Intervention\Image\ImageManagerStatic as Image;
 class AdminController{
     public static function menu(Router $router){
         //Iniciarlizar el session y revisar si es admin
@@ -330,6 +331,7 @@ class AdminController{
             
             if(empty($alertas)) //Si no hay errores guarda la tarea y llena la siguiente tabla que es usuariosTareas
             {
+                
                 $tarea->guardar();
                 $tarea=Tarea::where('url',$tarea->url); //Obtiene la tarea
                 $idTarea=$tarea->id; //Obtiene el id de la Tarea
@@ -345,24 +347,30 @@ class AdminController{
                 }
                 
                     
-                }
+                
                 $usuarios=Usuario::all();
                 $tareas=new Tarea();
                 $tareas=$tareas->tareasRecuperar($tablon->id);  //Necesario en tablon
                 $usuarioTareas=new UsuarioTarea();        
                 $usuarioTareas=$usuarioTareas->usuariosTareas($tablon->id);
-                foreach($grupos as $grupo) //Llenar y actualizar la tabla  de grupo
-            {
-                $grupo=Grupo::where('id',$grupo->id);
-                $grupo->total=$grupo->total($grupo->id);
-                $grupo->nuevas=$grupo->estado($grupo->id,0);
-                $grupo->estancadas=$grupo->estado($grupo->id,1);
-                $grupo->proceso=$grupo->estado($grupo->id,2);
-                $grupo->listas=$grupo->estado($grupo->id,3);
-                $grupo->guardar();
+                    foreach($grupos as $grupo) //Llenar y actualizar la tabla  de grupo
+                    {
+                        $grupo=Grupo::where('id',$grupo->id);
+                        $grupo->total=$grupo->total($grupo->id);
+                        $grupo->nuevas=$grupo->estado($grupo->id,0);
+                        $grupo->estancadas=$grupo->estado($grupo->id,1);
+                        $grupo->proceso=$grupo->estado($grupo->id,2);
+                        $grupo->listas=$grupo->estado($grupo->id,3);
+                        $grupo->guardar();
+                        header("Location: /admin/proyectos/tablon?url=$url1&id=1");
                 
+                    }
             }
-            header("Location: /admin/proyectos/tablon?url=$url1&id=1");         
+            $tareas=new Tarea();
+            $tareas=$tareas->tareasRecuperar($tablon->id);  //Necesario en tablon
+            $usuarioTareas=new UsuarioTarea();        
+            $usuarioTareas=$usuarioTareas->usuariosTareas($tablon->id);
+                     
         }
         $router->render('admin/tablon',[
             'grupos'=>$grupos,
@@ -556,19 +564,74 @@ class AdminController{
         if($_SERVER['REQUEST_METHOD']==='POST')
         {
             $comentario=new Comentario();
+            if($_FILES['imagen'])
+            {
+                
+                $size=$_FILES['imagen']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['imagen']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+                $imagen=$_FILES['imagen'];
+                if(($ext==='jpg') || ($ext==='jpeg') || ($ext==='png'))
+                {
+                    $nombreImagen=md5(uniqid(rand(),true)). ".jpg"; //Crear un nombre unic
+                    //Realizar un resize a la imagen con intervention
+                    $image=Image::make($_FILES['imagen']['tmp_name'])->resize(800,600);
+                    
+                    $comentario->setImagen($nombreImagen);
+                    if(!is_dir(CARPETA_IMAGENES)){
+                        mkdir(CARPETA_IMAGENES);
+                    }
+                    $image->save(CARPETA_IMAGENES .'/'.$nombreImagen);
+                }
+                elseif($ext===""){
+                    $comentario->imagen="";
+                }else{
+                    $alertas['error'][]="Formato de imagen no valido";
+                }  
+            }
+            if($_FILES['archivo'])
+            {
+                $target_dir = "archivos/";
+                $size=$_FILES['archivo']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['archivo']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+                $temp_name = $_FILES['archivo']['tmp_name'];
+              
+                if(($ext==='xlsx') || ($ext==='doc') || ($ext==='pdf'))
+                {
+                    if(!is_dir(CARPETA_ARCHIVO)){
+                        mkdir(CARPETA_ARCHIVO);
+                    }
+                    $nombreArchivo=md5(uniqid(rand(),true)).".".$ext; //Crear un nombre unic
+                    $path_filename_ext = $target_dir.$nombreArchivo;
+                    
+                    
+                    
+                    //Realizar un resize a la imagen con intervention
+                    $comentario->setArchivo($nombreArchivo);
+                    move_uploaded_file($temp_name,$path_filename_ext);
+                }
+                elseif($ext===""){
+                    $comentario->archivo="";
+                }else{
+                    $alertas['error'][]="Formato de archivo no valido";
+                }
+                
+            }
             
             if(!($_POST['contenido']==="")){
+                
                 $comentario->contenido=$_POST['contenido'];
                 $comentario->fecha=date('d-m-Y');
                 $comentario->IdTarea=$id;
                 $comentario->IdUsuario=$_SESSION['id'];
                 $comentario->nombre=$_SESSION['nombre'];
-                
             }else{
                 $alertas['error'][]="tu comentario esta vacio, vuelve a intentarlo";
             }
             if(empty($alertas))
             {
+                //Guardar la imagen en el servidor
                 $resultado=$comentario->guardar();
                 
                 if($resultado)
@@ -591,7 +654,8 @@ class AdminController{
         $url=$_GET['url'];
         $tarea=Tarea::where('url',$url);
         $id=$tarea->id;
-        $comentarios=Comentario::belogsTo('IdTarea',$id);
+        $comentarios=Comentario::belogsToOrdenado('IdTarea',$id);
+        
         
         $router->render('admin/mostrar',[
             'comentarios'=>$comentarios

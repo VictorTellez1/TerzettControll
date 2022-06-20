@@ -132,6 +132,15 @@
             
         </p>
         </div>
+        <?php
+              include_once __DIR__."/../templates/alertas.php";
+          ?>
+          <?php 
+            $mensaje = mostrarNotificacion( intval( $resultado) );
+            if($mensaje) { ?>
+              <p class="alert alert-success text-white font-weight-bold text-center text-uppercase"><?php echo s($mensaje); ?></p>
+            <?php } 
+          ?>
         <?php foreach($grupos as $grupo){ ?>         
           <div class="container">
           <table class="table">
@@ -165,10 +174,10 @@
                       
                       <td class="text-center"><?php echo $tarea->fecha ?></td> 
                       <td>
-                          <a href="/usuario/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" >
+                      <a href="/usuario/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" rel="tooltip" title="Agregar comentarios-complementos" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" >
                             <i class="now-ui-icons ui-1_simple-add"></i>
                           </a>
-                          <a href="/usuario/proyectos/tablon/contenido?url=<?php echo $tarea->url?>" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" >
+                        <a href="/usuario/proyectos/tablon/contenido?url=<?php echo $tarea->url?>" rel="tooltip" title="Visualizar complementos" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                           </a>
                       </td>

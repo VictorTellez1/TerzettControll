@@ -105,7 +105,7 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
             </button>
             <div class="navbar-collapse justify-content-end collapse show" id="navigation" style="">
-            <form class="form-inline my-2 my-lg-0" action="/admin/proyectos/filtro" method="POST">
+            <form class="form-inline my-2 my-lg-0" action="/lider/proyectos/filtro" method="POST">
                     <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search"  id="nombre" name="busqueda">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                   </form>
@@ -121,9 +121,9 @@
             </p>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=0">Ford</a>
-            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=1">BD</a>
-            <a class="dropdown-item" href="/admin/proyectos/filtro?filtro=2">Internos</a>
+            <a class="dropdown-item" href="/lider/proyectos/filtro?filtro=0">Ford</a>
+            <a class="dropdown-item" href="/lider/proyectos/filtro?filtro=1">BD</a>
+            <a class="dropdown-item" href="/lider/proyectos/filtro?filtro=2">Internos</a>
             </div>
             </li>
             </ul>

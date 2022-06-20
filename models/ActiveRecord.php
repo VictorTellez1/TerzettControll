@@ -60,6 +60,12 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+    public static function belogsToOrdenado($columna,$valor)
+    {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}' ORDER BY fecha desc";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
     public static function belogsTo($columna,$valor)
     {
         $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
@@ -335,7 +341,7 @@ class ActiveRecord {
         $query .=  join(', ', $valores );
         $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
         $query .= " LIMIT 1 "; 
-        
+        // debuguear($query);
         // Actualizar BD
         $resultado = self::$db->query($query);
         return $resultado;
