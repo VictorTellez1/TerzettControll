@@ -171,14 +171,14 @@
                 </select>
                 <br>
               <label for="exampleFormControlInput1" class="form-label">Asignada para:</label>
-              <div class="container ">
-          
+              <div class="container-lg col-md-2 ">
               <?php foreach($usuarios as $usuario) {?>
-              <input class="form-check-input" type="checkbox" value="<?php echo $usuario->id;?>" id="usuario" name='CheckBox[]'>
-              <label class="form-check-label col-3" for="usuario">
-                <?php echo $usuario->nombre; ?>
-              </label>
-              <?php } ?>
+                <ul class=" list-group-horizontal"> 
+                <li class="list-group-item"><input class="form-check-input " type="checkbox" value="<?php echo $usuario->id;?>" id="usuario" name='CheckBox[]'>
+              <label class="form-check-label" for="usuario"><?php echo $usuario->nombre; ?></label> </li> 
+               </ul> 
+              <?php }?>
+              </div>
               </div>
               <button type="submit" class="btn btn-primary ">Guardar</button>
             </form>  
