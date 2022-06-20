@@ -216,7 +216,7 @@
                       <a href="/lider/proyectos/tablon/tareas-actualizar?url=<?php echo $tarea->url?>" rel="tooltip" title="Actualizar información" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret">
                             <i class="now-ui-icons design-2_ruler-pencil"></i>
                         </a>
-                        <form method="POST" action="/admin/proyectos/tablon/eliminar?url=<?php echo $tarea->url?>">
+                        <form method="POST" action="/lider/proyectos/tablon/eliminar?url=<?php echo $tarea->url?>">
                           <button href="/lider/proyectos/tablon/eliminar?url=<?php echo $tarea->url?>" rel="tooltip" title="Eliminar tarea" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" >
                               <i class="now-ui-icons ui-1_simple-remove"></i>
                           </button>

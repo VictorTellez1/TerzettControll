@@ -95,6 +95,7 @@ class UsuarioController{
             $filtro=$_GET['filtro'];
             $valor=$filtro;
             $tablones=Tablon::beongsToUsuario($_SESSION['id'],$valor); 
+            $tablones=array_unique($tablones,SORT_REGULAR); //Elimina los repetidos
         }
         
         if($_SERVER['REQUEST_METHOD']==='POST')

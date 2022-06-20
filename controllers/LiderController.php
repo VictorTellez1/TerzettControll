@@ -235,6 +235,7 @@ class LiderController{
             $tareas=new Tarea();
             $tareas=$tareas->tareasRecuperar($tablon->id);  //Necesario en tablon
             $usuarioTareas=new UsuarioTarea();
+            
             if($tablon->lider !== $_SESSION['nombre']){ //QUTITAR EL DEBUGEAR Y CAMBIAR POR UN HEADER
                 
                 header ("Location: /lider/proyectos");
@@ -476,6 +477,7 @@ class LiderController{
             $grupo=Grupo::where('id',$urlGrupo);
             $urlTablon=$grupo->idTablon;
             $tablon=Tablon::where('id',$urlTablon);
+            
             if($tablon->lider !== $_SESSION['nombre']){ //QUTITAR EL DEBUGEAR Y CAMBIAR POR UN HEADER
                 header('Location : /lider/proyectos/tablon');
             }else{

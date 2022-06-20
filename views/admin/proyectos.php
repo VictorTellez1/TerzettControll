@@ -183,7 +183,10 @@
             </div>
             </div>
         </form>
-        
+        <?php if(empty($tablones)) {?>
+            <p class="text-center">No hay tablones con estos parametros o no has creado alguno aun</p>
+
+        <?php } ?>
           <?php foreach($tablones as $tablon) {?>
             <?php if(empty($tablones)) echo "<p>No hay resultados con el criterio de busqueda</p>"?>
             <div class="card text-center container">
