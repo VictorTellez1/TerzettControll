@@ -10,6 +10,7 @@
         }
     },
     "require": {
-        "mpdf/mpdf": "^7.0"
+        "mpdf/mpdf": "^8.1",
+        "intervention/image": "^2.7"
     }
 }
