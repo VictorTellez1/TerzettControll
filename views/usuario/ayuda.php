@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" href="/build/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Proyectos | Terzett Technologix
+    Ayuda | Terzett Technologix
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -38,8 +38,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  
-
 </head>
 
 <body class="">
@@ -64,13 +62,13 @@
               <p>Cuenta</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="/usuario/proyectos">
               <i class="now-ui-icons education_atom"></i>
               <p>Proyectos</p>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="/Ayuda">
               <i class="now-ui-icons design_palette"></i>
               <p>Ayuda</p>
@@ -93,49 +91,32 @@
     </div>
     <div class="main-panel" id="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg bg-primary navbar-absolute navbar-transparent">
-            <div class="container-fluid">
-            <div class="navbar-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
             <div class="navbar-toggle">
-            <button type="button" class="navbar-toggler">
-            <span class="navbar-toggler-bar bar1"></span>
-            <span class="navbar-toggler-bar bar2"></span>
-            <span class="navbar-toggler-bar bar3"></span>
-            </button>
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Admnistración de proyectos</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="true" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            </button>
-            <div class="navbar-collapse justify-content-end collapse show" id="navigation" style="">
-            <form class="form-inline my-2 my-lg-0" action="/usuario/proyectos/filtro" method="POST">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search"  id="nombre" name="busqueda">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                  </form>
-
-            
-
+            <a class="navbar-brand" href="#pablo">Comentarios</a>
+          </div>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" rel="tooltip" title="Filtrar con las siguientes opciones">
-            <i class="now-ui-icons education_glasses"></i>
-            <p>
-            <span class="d-lg-none d-md-block">Some Actions</span>
-            </p>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/usuario/proyectos/filtro?filtro=0">Ford</a>
-            <a class="dropdown-item" href="/usuario/proyectos/filtro?filtro=1">BD</a>
-            <a class="dropdown-item" href="/usuario/proyectos/filtro?filtro=2">Internos</a>
-            </div>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="now-ui-icons users_single-02"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
             </ul>
-            </div>
-            </div>
-            </nav>
+          </div>
+        </div>
+      </nav>
       <!-- End Navbar -->
       <div class="panel-header panel-header-sm">
     </div>
@@ -143,40 +124,35 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-          <div class="card-header d-flex bd-highlight">
-              <h4 class="card-title p-2 flex-grow-1 bd-highlight">Resultados encontrados:</h4>
-              <a  href="/usuario/proyectos" class="btn btn-primary p-2 bd-highlight">
-              Regresar a proyectos
-            </a>
+            <div class="card-header">
+              <h4 class="card-title">Ayudanos a mejorar</h4>
             </div>
-            <?php if(empty($tablones)) {?>
-                <p class="text-center text-bold">No hay resultados para el criterio de busqueda</p>
-
-            <?php } ?>
-          <?php foreach($tablones as $tablon) {?>
-           
-            <div class="card text-center container">
-                <div class="card-header">
-                    <strong>Líder de proyecto:<br></strong>  <?php echo $tablon->lider; ?>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title"><?php echo $tablon->nombre; ?></h5>
-                  <p class="card-text"><?php echo $tablon->descripcion; ?></p>
-                  <?php if($tablon->lugar=='0') $tablon->lugar="FORD" ?>
-                  <p><?php if($tablon->lugar=='1') $tablon->lugar="BD" ?>
-                  <?php if($tablon->lugar=='2') $tablon->lugar="Interno" ?>
-                  <p class="card-text"><?php echo $tablon->lugar?></p>
-                  <div class="card-footer text-muted">
-                    <strong>Fecha de creacion:<br></strong> <?php echo $tablon->fecha; ?>
-                  </div>
-                  <div class="btn-toolbar justify-content-center">
-                    <a href="/usuario/proyectos/tablon?url=<?php echo $tablon->url?>" class="btn btn-primary ml-3">Detalles del tablón</a>
-                  </div>
-                </div>
+            <?php
+              include_once __DIR__."/../templates/alertas.php";
+          ?>
+          <?php 
+            $mensaje = mostrarNotificacion( intval( $resultado) );
+            if($mensaje) { ?>
+              <p class="alert alert-success text-white font-weight-bold text-center text-uppercase"><?php echo s($mensaje); ?></p>
+            <?php } 
+          ?>
+            <div class="card-body">
+                <form method="POST" action="/Ayuda" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="mb-3">
+                        <label for="contenido">Agregar comentario</label>
+                        <textarea class="form-control" id="contenido" rows="3" placeholder="¿Que error ocurrio o que sugerencia tienes?" name="contenido"></textarea>
+                     </div>
+                    </div>
+                    <label for="imagen" class="mb-2">Imagen</label>
+                    <input type="file" id="imagen" class="form-control" name="imagen" accept="image/jpeg, image/png" class="mb-2">
+                    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+                  </form>
+                  <label class="mb-2">¿Tienes alguna duda?</label>
+                  <a href="/archivos/ManualUsuarioAdmin.pdf" class="btn btn-primary">Pulsa aqui para descargar el manual</a>
+                </table>
               </div>
-              <?php } ?>
             </div>
-         
           </div>
         </div>
       
@@ -219,10 +195,6 @@
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/build/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="/build/demo/demo.js"></script>
-  <script src="/build/js/grupos.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
-
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js

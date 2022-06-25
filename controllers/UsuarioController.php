@@ -8,6 +8,7 @@ use Model\Grupo;
 use Model\Tarea;
 use Model\UsuarioTarea;
 use Model\Comentario;
+use Model\Retro;
 use Intervention\Image\ImageManagerStatic as Image;
 class UsuarioController{
     public static function usuario(Router $router){
@@ -301,6 +302,71 @@ class UsuarioController{
             
         ]);
     }
+    public static function retro(Router $router)
+    {
+        if(isset($_GET['id']))
+        {
+            $id=$_GET['id'];
+        }else{
+            $id=4;
+        }
+        $retroalimentacion=new Retro();
+        $alertas=[];
+        if($_SERVER['REQUEST_METHOD']==='POST')
+        {
+           
+            if($_FILES['imagen'])
+            {
+                
+                $size=$_FILES['imagen']['size']; //Esto es lo que se puede cambiar para el tamaño 
+                $path=$_FILES['imagen']['name'];
+                $ext=pathinfo($path,PATHINFO_EXTENSION);
+                $imagen=$_FILES['imagen'];
+                if(($ext==='jpg') || ($ext==='jpeg') || ($ext==='png'))
+                {
+                    $nombreImagen=md5(uniqid(rand(),true)). ".jpg"; //Crear un nombre unic
+                    //Realizar un resize a la imagen con intervention
+                    $image=Image::make($_FILES['imagen']['tmp_name'])->resize(800,600);
+                    
+                    $retroalimentacion->setImagen($nombreImagen);
+                    if(!is_dir(CARPETA_IMAGENES)){
+                        mkdir(CARPETA_IMAGENES);
+                    }
+                    $image->save(CARPETA_IMAGENES .'/'.$nombreImagen);
+                }
+                elseif($ext===""){
+                    $retroalimentacion->imagen="";
+                }else{
+                    $alertas['error'][]="Formato de imagen no valido";
+                }  
+            }
+            if(!($_POST['contenido']==="")){
+                
+                $retroalimentacion->contenido=$_POST['contenido'];
+                $retroalimentacion->fecha=date('d-m-Y');
+                $retroalimentacion->nombre=$_SESSION['nombre'];
+                
+            }else{
+                $alertas['error'][]="tu comentario esta vacio, vuelve a intentarlo";
+            }
+            if(empty($alertas))
+            {
+                //Guardar la imagen en el servidor
+                $resultado=$retroalimentacion->guardar();
+                
+                if($resultado)
+                {
+                    header("Location: /Ayuda?id=1");
+                }
+            }
+        }
+        
+        $router->render('usuario/ayuda',[
+            'alertas'=>$alertas,
+            'resultado'=>$id
+        ]);
+    }
+    
     
     
 }
