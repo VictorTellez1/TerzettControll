@@ -4,8 +4,15 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
+<<<<<<< HEAD
     <!-- RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f -->
     RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
     RewriteRule ^destinations/(.*)$ destinations.php?destId=$1 [NC,L]
 </IfModule>
+=======
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+>>>>>>> 545561787414415d2ef14bb0a1385d9a7da9e945

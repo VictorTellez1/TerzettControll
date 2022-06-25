@@ -76,6 +76,12 @@
             </a>
           </li>
           <li>
+            <a href="/Ayuda">
+              <i class="now-ui-icons design_palette"></i>
+              <p>Ayuda</p>
+            </a>
+          </li>
+          <li>
             <a href="/logout">
               <i class="now-ui-icons objects_key-25"></i>
               <p>Cerrar sesión</p>

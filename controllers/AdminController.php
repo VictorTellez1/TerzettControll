@@ -9,6 +9,8 @@ use Model\Tarea;
 use Model\UsuarioTarea;
 use Model\Comentario;
 use Intervention\Image\ImageManagerStatic as Image;
+use Model\RetroAlimentacion;
+
 class AdminController{
     public static function menu(Router $router){
         //Iniciarlizar el session y revisar si es admin
@@ -499,17 +501,23 @@ class AdminController{
         $usuarios=Usuario::all();
         $tarea=Tarea::where('url',$url);
         $usuariostarea=UsuarioTarea::belogsTo('IdTarea',$tarea->id);
-        //Se deja este modulo aqui pues es el inicio de lo que se tendria que hacer si se quisiera modificar tambien las personas que pertenecen a un tablon
-        // foreach($usuariostarea as $usuariotarea)
-        // {
-        //     foreach($usuarios as $usuario)
-        //     {
-        //         if($usuario->id===$usuariotarea->IdUsuario)
-        //         {
-        //             $usuario->check="1";
-        //         }
-        //     }
-        // }
+        
+        // Se deja este modulo aqui pues es el inicio de lo que se tendria que hacer si se quisiera modificar tambien las personas que pertenecen a un tablon
+        $usuariosTarea=[];
+        $contador=0;
+        foreach($usuariostarea as $usuariotarea)
+        {
+            foreach($usuarios as $usuario)
+            {
+                if($usuario->id===$usuariotarea->IdUsuario)
+                {
+                    // debuguear($usuario);
+                    $usuariosTareaFiltrado[]=$usuario; //Filtro los usuarios totales para guardar unicamente los que correspondan a esa tarea
+                    $contador=$contador+1;  
+                }
+            }
+        }
+        
         if($_SERVER['REQUEST_METHOD']==='POST')
         {
             
@@ -662,6 +670,7 @@ class AdminController{
             
         ]);
     }
+   
     
 
     

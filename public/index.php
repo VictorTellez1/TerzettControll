@@ -17,6 +17,9 @@ $router->post('/',[LoginController::class,'login']);
 //Cerrar sesion
 $router->get('/logout',[LoginController::class,'logout']);
 
+
+
+
 //Recuperar password desde admin, la contraseña que se pondra por defecto sera 12345
 $router->get('/admin/usuario/recuperar',[LoginController::class,'recuperar']);
 
@@ -138,6 +141,9 @@ $router->post('/lider/proyectos/tablon/comentarios',[LiderController::class,'com
 //Mostrar comentarios y archivos, muestra los archivos o comentarios que ha creado
 $router->get('/lider/proyectos/tablon/contenido',[LiderController::class,'contenido']);
 
+//Comentar y descargar manual.
+$router->get('/Ayuda',[LiderController::class,'retro']);
+$router->post('/Ayuda',[LiderController::class,'retro']);
 
 //Usuarios
 $router->get('/usuario/usuario',[UsuarioController::class,'usuario']);

@@ -1,29 +1,13 @@
-<!--
-
-=========================================================
-* Now UI Dashboard - v1.5.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Designed by www.invisionapp.com Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
--->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="/build/img/apple-icon.png">
-  <link rel="icon" type="image/png" href=/build/img/logo-terzett.png">
+  <link rel="icon" type="image/png" href="/build/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Nuevos usuarios | Terzett Technologix
+    Conversación de proyecto | Terzett Technologix
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -56,25 +40,25 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active">
-            <a href="/lider/usuario" >
+        <li>
+            <a href="/usuario/usuario">
               <i class="now-ui-icons users_single-02"></i>
               <p>Cuenta</p>
             </a>
           </li>
-          <li>
-            <a href="/lider/proyectos">
+          <li class="active ">
+            <a href="/usuario/proyectos">
               <i class="now-ui-icons education_atom"></i>
               <p>Proyectos</p>
             </a>
           </li>
           <li>
+          <li class="active">
             <a href="/Ayuda">
               <i class="now-ui-icons design_palette"></i>
               <p>Ayuda</p>
             </a>
           </li>
-          <li>
             <a href="/logout">
               <i class="now-ui-icons objects_key-25"></i>
               <p>Cerrar sesión</p>
@@ -95,13 +79,25 @@
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <div class="navbar-toggle">
-                <button type="button" class="navbar-toggler">
-                  <span class="navbar-toggler-bar bar1"></span>
-                  <span class="navbar-toggler-bar bar2"></span>
-                  <span class="navbar-toggler-bar bar3"></span>
-                </button>
-              </div>
-            <a class="navbar-brand" href="#pablo">Datos de usuario</a>
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">Comentarios</a>
+          </div>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="now-ui-icons users_single-02"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
@@ -109,16 +105,32 @@
       <div class="panel-header panel-header-sm">
     </div>
     <div class="content">
-      <div class="row" style="display: flex; justify-content: center;">          
-            <div class="card text-center" style="width: 18rem;" >
-                <div class="card-body">
-                  <h5 class="card-title"><?php echo $usuario->nombre . " ". $usuario->apellidoPaterno . " ".$usuario->apellidoMaterno?></h5>
-                  <p class="card-text"><strong>Numero de empleado :</strong> <?php echo $usuario->numeroempleado?></p>
-                  <p class="card-text"><strong>Puesto:</strong><?php echo $usuario->puesto?></p>
-                  <p class="card-text"><strong>Email:</strong> <?php echo $usuario->correo?></p>
-                  <a href="/lider/password" class="btn btn-primary">Cambiar contraseña</a>
-                </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Conversación de proyecto</h4>
+            </div>
+            <?php
+              include_once __DIR__."/../templates/alertas.php";
+          ?>
+          
+            <div class="card-body">
+                <form method="POST" action="/usuario/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="mb-3">
+                        <label for="contenido">Agregar comentario</label>
+                        <textarea class="form-control" id="contenido" rows="3" placeholder="¿Qué esta pasando?" name="contenido"></textarea>
+                     </div>
+                    </div>
+                    <label for="imagen" class="mb-2">Imagen</label>
+                    <input type="file" id="imagen" class="form-control" name="imagen" accept="image/jpeg, image/png" class="mb-2">
+                    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+                  </form>
+                </table>
               </div>
+            </div>
+          </div>
         </div>
       
       <footer class="footer">
@@ -147,19 +159,19 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/build/js/core/jquery.min.js"></script>
+  <script src="/build/js/core/popper.min.js"></script>
+  <script src="/build/js/core/bootstrap.min.js"></script>
+  <script src="/build/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="/build/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="/build/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  <script src="/build/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/build/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
