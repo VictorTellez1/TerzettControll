@@ -8,6 +8,7 @@ use Model\Grupo;
 use Model\Tarea;
 use Model\UsuarioTarea;
 use Model\Comentario;
+use Model\Retro;
 use Intervention\Image\ImageManagerStatic as Image;
 use Model\RetroAlimentacion;
 
@@ -670,6 +671,23 @@ class AdminController{
             
         ]);
     }
+    public static function retro(Router $router)
+    {
+        //Permite visualizar los comentarios o archivos que se hayan creado en una tarea en concreto
+        isAuth();
+        expira();
+        $retro=new Retro();
+        $retro=Retro::allFecha();
+        
+        
+        
+        $router->render('admin/retro',[
+            // 'comentarios'=>$comentarios
+            'retros'=>$retro
+            
+        ]);
+    }
+
    
     
 

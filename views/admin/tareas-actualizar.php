@@ -38,7 +38,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 
 </head>
 
@@ -48,12 +50,12 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-      <div class="logo">
+    <div class="logo">
         <a href="#" class="simple-text logo-mini">
-          <img src="/build/img/logo-terzett.png" alt="">
+          <img src="/build/img/System_Hercules.png" alt="">
         </a>
-        <a href="#" class="simple-text logo-normal">
-          Terzett Technologix
+        <a style="font-family: 'Righteous', cursive;" class="simple-text logo-normal">
+        System Hercules
         </a> 
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -74,6 +76,12 @@
             <a href="/admin/proyectos">
               <i class="now-ui-icons education_atom"></i>
               <p>Proyectos</p>
+            </a>
+          </li>
+          <li>
+            <a href="/Retro">
+              <i class="now-ui-icons design_palette"></i>
+              <p>Ayuda</p>
             </a>
           </li>
           <li>

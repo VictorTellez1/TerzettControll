@@ -158,6 +158,8 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+    
+
     public static function usuariosEmpleado()
     {
         $query="SELECT * FROM usuario order by numeroempleado";

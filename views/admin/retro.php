@@ -23,7 +23,7 @@
   <link rel="icon" type="image/png" href="/build/img/logo-terzett.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Ayuda | Terzett Technologix
+    Proyectos | Terzett Technologix
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -38,6 +38,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="">
@@ -46,12 +50,12 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-      <div class="logo">
+    <div class="logo">
         <a href="#" class="simple-text logo-mini">
-          <img src="/build/img/logo-terzett.png" alt="">
+          <img src="/build/img/System_Hercules.png" alt="">
         </a>
-        <a href="#" class="simple-text logo-normal">
-          Terzett Technologix
+        <a style="font-family: 'Righteous', cursive;" class="simple-text logo-normal">
+        System Hercules
         </a> 
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
@@ -74,8 +78,8 @@
               <p>Proyectos</p>
             </a>
           </li>
-          <li class="active">
-            <a href="/Ayuda">
+          <li>
+            <a href="/Retro">
               <i class="now-ui-icons design_palette"></i>
               <p>Ayuda</p>
             </a>
@@ -107,20 +111,12 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Comentarios</a>
+            <a class="navbar-brand" href="#pablo">Sistema Retroalimentación</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </nav>
       <!-- End Navbar -->
@@ -130,10 +126,13 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">Ayudanos a mejorar</h4>
+            <div class="card-header d-flex bd-highlight">
+              <h4 class="card-title p-2 flex-grow-1 bd-highlight">Problemas o Retro</h4>
+              <!-- <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Agregar comentarios/archivos.
+            </a> -->
             </div>
-            <?php
+          <!-- <?php
               include_once __DIR__."/../templates/alertas.php";
           ?>
           <?php 
@@ -141,23 +140,38 @@
             if($mensaje) { ?>
               <p class="alert alert-success text-white font-weight-bold text-center text-uppercase"><?php echo s($mensaje); ?></p>
             <?php } 
-          ?>
-            <div class="card-body">
-                <form method="POST" action="/Ayuda" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <div class="mb-3">
+          ?> -->
+              <!-- <form method="POST" action="/admin/proyectos/tablon/comentarios?url=<?php echo $tarea->url?>" enctype="multipart/form-data">
+            <div class="container">
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                <div class="mb-3">
                         <label for="contenido">Agregar comentario</label>
-                        <textarea class="form-control" id="contenido" rows="3" placeholder="¿Que error ocurrio o que sugerencia tienes?" name="contenido"></textarea>
-                     </div>
-                    </div>
-                    <label for="imagen" class="mb-2">Imagen</label>
-                    <input type="file" id="imagen" class="form-control" name="imagen" accept="image/jpeg, image/png" class="mb-2">
-                    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
-                  </form>
-                  <label class="mb-2">¿Tienes alguna duda?</label>
-                  <a href="/archivos/ManualUsuarioAdmin.pdf" class="btn btn-primary">Pulsa aqui para descargar el manual</a>
-                </table>
+                    <textarea class="form-control" id="contenido" rows="3" placeholder="¿Qué esta pasando?" name="contenido"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+            </div>
+        </form> -->
+          <?php if(empty($retros)) {?>
+            <p class="text-center">No hay retro aun</p>
+          <?php } ?>  
+          <?php foreach($retros as $retro) {?>
+            <div class="card text-center container">
+                <div class="card-body">
+                  <h5 class="card-title">Envio un comentario: <br></h5><?php echo $retro->nombre; ?><br>
+                  <h5 class="card-title">Mensaje: <br></h5><?php echo $retro->contenido; ?>
+                  <p class="mt-3 h5">Archivos :</p>
+                  <?php if(!($retro->imagen==="")){?>
+                    <a href="/imagenes/<?php  echo $retro->imagen;?>" class="btn btn-primary">Imagen</a>
+                  <?php } ?>
+                  <div class="card-footer text-muted">
+                    <strong>Fecha de envio:<br></strong> <?php echo ($retro->fecha); ?>
+                  </div>
               </div>
+            </div>
+            <?php }?>
             </div>
           </div>
         </div>
@@ -201,6 +215,10 @@
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/build/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
   <script src="/build/demo/demo.js"></script>
+  <script src="/build/js/grupos.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
@@ -209,5 +227,6 @@
     });
   </script>
 </body>
+
 
 </html>

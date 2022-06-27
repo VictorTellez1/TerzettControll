@@ -171,8 +171,8 @@ $router->post('/usuario/proyectos/tablon/comentarios',[UsuarioController::class,
 $router->get('/usuario/proyectos/tablon/contenido',[UsuarioController::class,'contenido']);
 
 //Comentar y descargar manual.
-$router->get('/Ayuda',[UsuarioController::class,'retro']);
-$router->post('/Ayuda',[UsuarioController::class,'retro']);
+$router->get('/Retro',[AdminController::class,'retro']);
+
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
